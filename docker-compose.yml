@@ -1,0 +1,77 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.backend
+    container_name: lampn-backend-prod
+    restart: unless-stopped
+    volumes:
+      - ./backend:/var/www/html
+    ports:
+      - 8087:8000
+
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile.frontend
+  #   container_name: lampn-frontend-prod
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./frontend:/usr/src/app
+  #   ports:
+  #     - 8086:4200
+
+
+  nginx:
+    image: nginx:alpine
+    container_name: lampn-frontend-prod
+    restart: unless-stopped
+    volumes:
+      - ./frontend/dist/app:/usr/share/nginx/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 8085:80
+
+
+
+
+  database:
+    image: mysql:latest
+    container_name: lampn-mysql-prod
+    restart: unless-stopped
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: research_capsule
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_PASSWORD: password
+      MYSQL_USER: user
+    ports:
+      - 8084:3306
+
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: lampn-phpmyadmin-prod
+    restart: unless-stopped
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=database
+      - PMA_USER=user
+      - PMA_PASSWORD=password
+      - PMA_PORT=3306
+    ports:
+      - 8083:80
+
+
+  redis:
+    image: redis:latest
+    container_name: lampn-redis-prod
+    restart: unless-stopped
+    volumes:
+      - ./redis/data:/data
+    ports:
+      - 8082:6379
+

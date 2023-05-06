@@ -1,0 +1,101 @@
+<h1 class="tab-title">New Faculty</h1>
+
+<div class="search-flex-end">
+<mat-form-field appearance="outline" >
+  <mat-label>Search</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John Doe" #input />
+  <mat-icon color="primary" mat-icon-button matSuffix>search</mat-icon>
+</mat-form-field>
+</div>
+  <div class="table-container" >
+  <table mat-table [dataSource]="dataSource" matSort id="table-report">
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-th">ID</th>
+      <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="Fullname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-th">Full name</th>
+      <td mat-cell *matCellDef="let row">
+        <span class="submitted-by-fullname">{{ row.firstName }} {{ row.lastName }}</span>
+      </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-th">Email</th>
+      <td mat-cell *matCellDef="let row">
+        <span class="submitted-by-fullname"> {{ row.email }} </span>
+      </td>
+    </ng-container>
+
+    <!-- Fruit Column -->
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-th">Registered Date</th>
+      <td mat-cell *matCellDef="let row">
+        <span class="submitted-date">{{row.created_at}}</span>
+      </td>
+    </ng-container>
+
+    <!-- Fruit Column -->
+    <!-- <ng-container matColumnDef="Usertype" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-th">User type</th>
+      <td mat-cell *matCellDef="let row">{{ row.level }}</td>
+    </ng-container> -->
+
+    <!-- Fruit Column -->
+    <ng-container matColumnDef="Status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-th">Status</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.approved == 1 ? "approved" : "unapproved" }}
+      </td>
+    </ng-container>
+
+
+    <!-- Fruit Column -->
+    <ng-container matColumnDef="Actions" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-th">Actions</th>
+      <td mat-cell *matCellDef="let row">
+        <div class="actions">
+        <button mat-button *ngIf="row.approved != 1 || !!row.approved == false"
+          class="accept" (click)="accept(row.id)" >
+          <mat-icon class="mat-icons-outlined" matSuffix>check-circle</mat-icon>Accept
+        </button>
+        <button mat-button class="decline" (click)="reject(row.id)">
+          <mat-icon class="mat-icons-outlined" matSuffix>block</mat-icon>Decline</button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="6">
+        <div *ngIf="!input.value" class="no-search-found-container">
+          <img class="no-search-found" src="assets/animations/no-search-found.svg">
+          <span class="no-search-found-text">No data is yet available in the table</span>
+        </div>
+        <div *ngIf="input.value" class="no-search-found-container">
+          <img class="no-search-found" src="assets/animations/no-search-found.svg">
+          <span class="no-search-found-result">{{ input.value }}</span>
+        </div>
+      </td>
+    </tr>
+
+  </table>
+  <br>
+  <br>
+  <mat-paginator [pageSizeOptions]="[9, 20, 30]"
+  showFirstLastButtons
+  aria-label="Select page of periodic elements">
+</mat-paginator>
+<button mat-button color="primary" onclick="window.print()">
+  <mat-icon color="primary">print</mat-icon>  Generate Report
+  </button>
+</div>
+
+<mat-spinner id="spinner" *ngIf="isLoading == true"></mat-spinner>

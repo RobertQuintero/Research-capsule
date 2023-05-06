@@ -1,0 +1,128 @@
+<!-- <app-side-nav></app-side-nav> -->
+
+<div class="main-container">
+  <h1 class="tab-title">Profile</h1>
+
+  <div class="profile-container">
+    <div class="profile-nav">
+      <div class="profile-nav-actions">
+        <button mat-button [routerLink]="['/profile']">Edit Profile</button>
+        <button mat-button [routerLink]="['/profile/change-password']">Change password</button>
+      </div>
+    </div>
+
+    <div class="profile-info">
+      <div class="profile-photo">
+        <h2 class="inside-tab-title">Profile Photo</h2>
+
+        <div class="profile-upload">
+          <div class="profile-photo-upload">
+            <div>
+              <img class="profile-photo-placeholder" [src]="!!imagePreview ? imagePreview: getPhoto()" *ngIf="!!currentUser.photo || !!imagePreview">
+              <div class="profile-photo-placeholder" *ngIf="!(!!currentUser.photo) || !!imagePreview">
+                <mat-icon
+                  aria-hidden="false"
+                  aria-label=""
+                  fontIcon="person"
+                ></mat-icon>
+              </div>
+              <mat-error *ngIf="!!photoError">
+                {{photoError}}
+              </mat-error>
+            </div>
+
+              <button class="profile-change" type="button" mat-icon-button color="primary" onclick="this.nextElementSibling.click()"><mat-icon matPrefix>add_photo_alternate</mat-icon></button>
+              <input
+              type="file"
+              name="photo"
+              id="photo"
+              hidden
+              (change)="updateProfilePhoto($event)"
+            />
+
+          </div>
+
+          <div class="profile-photo-requirements">
+              <strong>Image Requirements:</strong><br />
+              1. Min. 400px x 400px <br />
+              2. Max 2MB<br />
+              3. Your face or company logo
+          </div>
+        </div>
+      </div>
+
+
+
+        <form [formGroup]="userDetailsForm" (ngSubmit)="update(userDetailsForm.value)">
+          <h2 class="inside-tab-title">User Details</h2>
+            <div class="right-and-left-input-fields">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Enter your first name</mat-label>
+                <input
+                matInput
+                placeholder="Enter your first name"
+                name="firstName"
+                formControlName="firstName"
+                [errorStateMatcher]="matcher"
+                required
+                (input)="isFormDirty = true">
+                <mat-error *ngIf="firstName.hasError('required')">
+                 <mat-icon>error</mat-icon>Please enter your first name
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Enter your last name</mat-label>
+                <input
+                matInput
+                placeholder="Enter your last name"
+                name="lastName"
+                formControlName="lastName"
+                [errorStateMatcher]="matcher"
+                required
+                (input)="isFormDirty = true">
+                <mat-error *ngIf="lastName.hasError('required')">
+                  <mat-icon>error</mat-icon>Please enter your last name
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+
+
+            <div>
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Enter your email</mat-label>
+                <input
+                matInput
+                placeholder="pat@example.com"
+                name="email"
+                formControlName="email"
+                [errorStateMatcher]="matcher"
+                required
+                (input)="isFormDirty = true">
+                <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+                  Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="email.hasError('required')">
+                <mat-icon>error</mat-icon>Please enter your email address
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+
+          <div class="buttons">
+            <button type="button" mat-button class="decline" (click) ="discardChanges()">
+              Discard changes
+            </button>
+            <button type="submit" mat-button class="accept" [disabled]="!isFormDirty">
+              Save changes
+            </button>
+          </div>
+        </form>
+
+
+
+    </div>
+  </div>
+</div>
+<mat-spinner id="spinner" *ngIf="isLoading"></mat-spinner>

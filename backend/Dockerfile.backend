@@ -1,0 +1,46 @@
+# Base image
+FROM php:8.2.3-fpm
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy source code to container
+COPY . .
+
+# Set permissions for storage and bootstrap directories
+RUN mkdir -p storage/framework/{sessions,views,cache} storage/logs bootstrap/cache \
+    && chmod -R 777 storage bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    git \
+    jpegoptim optipng pngquant gifsicle \
+    locales \
+    unzip \
+    vim \
+    zip \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libonig-dev \
+    cron \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd mbstring bcmath exif pdo_mysql \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
+    && /bin/bash -c "source /root/.bashrc && nvm install v18.14.2"
+
+# Install cron job
+RUN echo "* * * * * root php /var/www/artisan schedule:run >> /var/log/cron.log 2>&1" >> /etc/crontab \
+    && touch /var/log/cron.log
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer install
+# Expose port
+EXPOSE 8000
+EXPOSE 9000
+
+# Start the server
+CMD php artisan serve --host=0.0.0.0 --port=8000

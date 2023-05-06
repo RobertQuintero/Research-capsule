@@ -1,0 +1,10 @@
+FROM mysql:latest
+
+
+# Set environment variables
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=research_capsule
+ENV MYSQL_USER=user
+ENV MYSQL_PASSWORD=research_capsule
+
+

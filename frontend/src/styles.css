@@ -1,0 +1,503 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+
+:root {
+
+
+    --primary: #8183f4;
+
+    /* --primary:#7E4425; */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   --font-family: Roboto, "Helvetica Neue", sans-serif;
+  --c-white: #FFFFFF;
+
+
+
+
+
+  --success: #328842;
+  --success-bg: #EBFFF1;
+
+  --danger:#883232;
+  --danger-bg: #FFCCCC;
+
+  --pending: #bca40b;
+  --pending-bg: #f9ea8e;
+
+  --assigned: #00b0e9;
+  --assigned-bg: #baebfb;
+
+  --unassigned: #808080;
+  --unassigned-bg: #f2f2f2;
+  /**
+   * typography
+  /**
+  /* font-color */
+
+
+  /* font-size */
+  --fs-18: 4.5rem;      /* 72px */
+  --fs-17: 3.6rem;      /* 58px */
+  --fs-16: 3.5rem;      /* 56px */
+  --fs-15: 3.4rem;      /* 54px */
+  --fs-14: 3.2rem;      /* 52px */
+  --fs-13: 3rem;        /* 48px */
+  --fs-12: 2.8rem;      /* 44px */
+  --fs-11: 2.6rem;      /* 42px */
+  --fs-10: 2.4rem;      /* 40px */
+  --fs-8: 2.2rem;       /* 36px */
+  --fs-9: 2rem;         /* 32px */
+  --fs-7: 1.8rem;       /* 28px */
+  --fs-6: 1.6rem;       /* 24px */
+  --fs-5: 1.4rem;       /* 22px */
+  --fs-4: 1.2rem;       /* 20px */
+  --fs-3: 1rem;         /* 16px */
+  --fs-mid-1: 0.9rem;   /* 14px */
+  --fs-2: 0.8rem;       /* 12px */
+  --fs-mid: 0.7rem;     /* 11px */
+  --fs-1: 0.6rem;       /* 10px */
+
+  /**
+  /* font weight */
+  --fw-700: 700;
+  --fw-600: 600;
+  --fw-500: 500;
+  --fw-400: 400;
+
+  --fc-0:#000000;
+  --fc-1:#FFFFFF;
+  --fc-3:#D9D9D9;
+  --fc-2:#ADADAD;
+  --fc-4:#808080;
+  --fc-6:#3e3e3e;
+
+  --bg-1: #FFFFFF;
+  --bg-2: #F2F2F2;
+
+  --border-1: 1px solid #D9D9D9;
+  --border-2: 1px solid #ADADAD;
+  --border-3: 1px solid #808080;
+  --border-4: 1px solid #000000;
+  /**
+   * shadow
+   */
+     --shadow-1: 0px 2px 4px rgba(0, 0, 0, 0.25);
+     --shadow-2:  0px 0.3px 0.9px rgba(0, 0, 0, 0.32), 0px 1.6px 3.6px rgba(0, 0, 0, 0.28);
+     --shadow-3: 2px 2px 0px hsla(0, 0%, 7%, 1);
+     --shadow-4: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 2px rgba(0, 0, 0, 0.25);
+  /**
+   * radius
+   */
+
+  --radius-1: 8px;
+  --radius-2: 10px;
+  --radius-11: 50%;
+  /**
+   * transition
+   */
+
+
+  --transition-1: all 250ms ease-in-out;
+  --transition-2: 500ms ease-in-out;
+  --transition-1: 0.25s ease-in-out;
+  --transition-2: 0.5s ease-in-out;
+  --tran-03: all 0.2s ease-in-out;
+  --tran-03: all 0.3s ease-in-out;
+  --tran-04: all 0.3s ease-in-out;
+  --tran-05: all 0.3s ease-in-out;
+}
+
+/*-----------------------------------*\
+  #RESET
+\*-----------------------------------*/
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li { list-style: none; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a,
+img,
+span,
+input,
+button { display: block; }
+
+/* img { height: auto; } */
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button{
+  background: none;
+  border: none;
+  font: inherit;
+}
+
+textarea,
+select {
+  font: inherit;
+}
+
+
+p, h1, h2, h3, h4, h5, h6 {
+ overflow-wrap: break-word;
+ color: var(--fc-0);
+}
+
+
+input { width: 100%; }
+
+button { cursor: pointer; }
+
+
+address { font-style: normal; }
+
+html {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  scroll-behavior: smooth;
+  height: 100%;
+  /* background-color: #FFFFFF !important; */
+}
+
+
+body {
+  /* line-height: 1.5; */
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  height: 100%;
+  font-family: var(--font-family);
+  background-color: hsl(40, 10%, 94%);
+}
+
+:focus-visible { outline-offset: 4px; }
+
+::-webkit-scrollbar { width: 0px; height: 0px;}
+
+::-webkit-scrollbar-track { background-color:transparent }
+
+::-webkit-scrollbar-thumb {
+ border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb:hover { background-color: hsl(0, 0%, 70%); }
+::-webkit-scrollbar-thumb:active { background-color: hsl(0, 0%, 80%); }
+
+
+mat-error{
+  font-size:var(--fs-mid);
+}
+mat-hint{
+  font-size:var(--fs-mid);
+}
+
+
+::ng-deep .mat-table {
+  border-radius: 10px !important;
+}
+
+
+.mat-mdc-form-field-subscript-wrapper .mat-icon, .mat-mdc-form-field label .mat-icon{
+  padding-top: 4px;
+  height: 14px !important;
+  padding-right: 1rem;
+  margin-left: -14px;
+}
+
+
+
+
+body > app-root > app-login {
+  margin: auto;
+  width: 100%;
+  transition: var(--tran-03);
+}
+body > app-root > app-register {
+  margin: auto;
+  width: 100%;
+  transition: var(--tran-03);
+}
+body > app-root > app-profile{
+  width: 100%;
+  height: 100%;
+  margin: 1rem 2rem 2rem 2rem;
+}
+
+body > app-root > app-dashboard{
+width: 100%;
+margin: 1rem 2rem 2rem 2rem;
+height: 100%;
+}
+body > app-root > app-new-faculty{
+  width: 100%;
+  margin: 1rem 2rem 2rem 2rem;
+  height: 100%;
+}
+body > app-root > app-registered-faculty{
+  width: 100%;
+  margin: 1rem 2rem 2rem 2rem;
+  height: 100%;
+}
+body > app-root > app-capsule-list{
+  width: 100%;
+  margin: 1rem 2rem 2rem 2rem;
+  height: 100%;
+}
+body > app-root > app-submitted-research{
+  width: 100%;
+  margin: 1rem 2rem 2rem 2rem;
+  height: 100%;
+}
+body > app-root > app-change-password{
+  width: 100%;
+  margin: 1rem 2rem 2rem 2rem;
+  height: 100%;
+}
+
+body > app-root > app-assigned-research{
+  width: 100%;
+  margin: 1rem 2rem 2rem 2rem;
+  height: 100%;
+}
+body > app-root > app-assigned-research > app-modal{
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: var(--tran-03);
+}
+
+body > app-root > app-registered-faculty > app-modal {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: var(--tran-03);
+}
+body > app-root > app-capsule-list > app-modal {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: var(--tran-03);
+}
+body > app-root > app-submitted-research > app-modal {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: var(--tran-03);
+}
+
+.dialog-header{
+  font-size: var(--fs-5);
+  font-weight: var(--fw-500);
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+
+body > app-root > app-error-unauthorized {
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  margin: auto;
+
+}
+body > app-root > app-error-not-found {
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  margin: auto;
+}
+
+h1.tab-title{
+  font-size: var(--fs-9);
+  font-weight: var(--fw-600);
+  color: var(--fc-0);
+}
+h2.inside-tab-title{
+  font-size: var(--fs-6);
+  font-weight: var(--fw-500);
+  color: var(--fc-6);
+}
+h3.inside-tab-title{
+  font-size: var(--fs-5);
+  font-weight: var(--fw-500);
+  color: var(--fc-6);
+}
+mat-header-cell{
+  font-size: var(--fs-3);
+  font-weight: var(--fw-600);
+}
+
+.table-th {
+  font-size: var(--fs-3);
+  font-weight: var(--fw-500);
+  color: var(--fc-4);
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem;
+}
+
+.mat-mdc-table .mat-mdc-row:hover, .mat-mdc-table .mat-mdc-footer-row:hover{
+  background-color: hsl(0, 91%, 38%);
+}
+
+
+
+
+@media print {
+  * {
+    visibility: hidden;
+  }
+  #table-report, #table-report * {
+    visibility: visible;
+  }
+  #table-report {
+    position: absolute;
+    top: 3rem;
+    left: 0rem;
+    right: 0rem
+  }
+  #table-report .mat-column-actions, #table-report .mat-column-Actions {
+    display: none;
+  }
+  @page {
+    size: auto;   /* auto is the initial value */
+    margin: auto;  /* this affects the margin in the printer settings */
+}
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.snack-warn {
+  --mdc-snackbar-container-color: var(--danger-bg);
+  --mdc-snackbar-supporting-text-color: var(--danger);
+  --mat-mdc-snack-bar-button-color: var(--danger);
+
+}
+
+.snack-success {
+  --mdc-snackbar-container-color: var(--success-bg);
+  --mdc-snackbar-supporting-text-color: var(--success);
+  --mat-mdc-snack-bar-button-color: var(--danger);
+}
+.snack-info {
+  --mdc-snackbar-container-color: #f9ea8e;
+  --mdc-snackbar-supporting-text-color: #bca40b;
+  --mat-mdc-snack-bar-button-color: var(--danger);
+}
+
+.no-search-found{
+  width: 20rem;
+  height: 20rem;
+  margin: 3rem auto;
+}
+
+
+.no-search-found-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: auto;
+}
+
+.no-search-found-result{
+  font-size: var(--fs-6);
+  font-weight: var(--fw-600);
+  color: var(--primary);
+}
+.no-search-found-result::before{
+  content: "No search found for ";
+  font-size: var(--fs-5);
+  font-weight: var(--fw-600);
+}
+
+.no-search-found-text{
+  font-size: var(--fs-6);
+  font-weight: var(--fw-600);
+  color: var(--primary);
+}
+
+
+.search-flex-end{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
