@@ -1,0 +1,167 @@
+<h1 class="tab-title">Registered Faculty</h1>
+<div class="search-flex-end">
+  <mat-form-field appearance="outline" color="primary">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John doe" #input />
+    <mat-icon color="primary" mat-icon-button matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" matSort id="table-report">
+
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-th">ID</th>
+      <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Fullname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-th">Faculty</th>
+      <td mat-cell *matCellDef="let row">
+        <div class="submitted-by">
+          <img class="submitted-by-img" [src]="!!row.photo ? getFileLink(row.photo) : 'assets/icons/user.png'"
+            alt="user" />
+          <div class="submitted-by-info">
+            <span class="submitted-by-fullname">{{ row.firstName }} {{ row.lastName }}</span>
+            <span class="submitted-by-email"> {{ row.email }} </span>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+
+    <!-- <ng-container matColumnDef="Email">
+      <th mat-header-cell *matHeaderCellDef class="table-th">Email</th>
+      <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+    </ng-container> -->
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef class="table-th">Registered Date</th>
+      <td mat-cell *matCellDef="let row">
+        <span class="submitted-date">{{row.created_at}}</span>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="capsub">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-th">Submitted Capsules</th>
+      <td mat-cell *matCellDef="let row">
+        <span class="submitted-capsules">{{row.capsules.length}}</span>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="asscap">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-th">Assigned Capsules</th>
+      <td mat-cell *matCellDef="let row">
+        <span class="submitted-capsules">{{row.reviews.length}}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="table-th">Actions</th>
+      <td mat-cell *matCellDef="let row">
+        <div class="actions">
+          <!-- <button mat-button class="edit" (click)="openModal(row.id)"> -->
+          <button mat-button
+            (click)="openModal({id: row.id, firstName: row.firstName, lastName: row.lastName, email: row.email, duration: '3000ms', delay: '1500ms'})">
+            Edit user email<mat-icon class="material-icons-outlined">edit_square_outline</mat-icon>
+          </button>
+          <button mat-button class="decline" (click)="openDeleteModal(row.id)">
+            Delete<mat-icon class="material-icons-outlined">delete</mat-icon>
+          </button>
+        </div>
+
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+
+
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="6">
+        <div *ngIf="!input.value" class="no-search-found-container">
+          <img class="no-search-found" src="assets/animations/no-search-found.svg">
+          <span class="no-search-found-text">No data is yet available in the table</span>
+        </div>
+        <div *ngIf="input.value" class="no-search-found-container">
+          <img class="no-search-found" src="assets/animations/no-search-found.svg">
+          <span class="no-search-found-result">{{ input.value }}</span>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <br>
+  <br>
+  <mat-paginator [pageSizeOptions]="[9, 20, 30]" showFirstLastButtons aria-label="Item per page">
+  </mat-paginator>
+  <button mat-button color="primary" onclick="window.print()">
+    <mat-icon color="primary">print</mat-icon> Generate Report</button>
+</div>
+<mat-spinner id="spinner" *ngIf="isLoading == true"></mat-spinner>
+
+
+
+
+
+
+
+
+
+<app-modal [title]="'Edit user email'" *ngIf="editModal == true">
+
+  <form body [formGroup]="editForm">
+    <span class="dialog-header">Edit user email</span>
+    <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+      <mat-label>First Name</mat-label>
+      <input matInput placeholder="Ex. John" formControlName="firstName" name="firstName" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="firstNameFormControl.hasError('required')">
+        <mat-icon>error</mat-icon>Please enter your first name
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+      <mat-label>Last Name</mat-label>
+      <input matInput placeholder="Ex. Doe" formControlName="lastName" name="lastName" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="lastNameFormControl.hasError('required')">
+        <mat-icon>error</mat-icon>Please enter your last name
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Ex. Johndoe@gmail.com" formControlName="email" name="email"
+        [errorStateMatcher]="matcher">
+    </mat-form-field>
+
+  </form>
+
+  <div footer class="dialog-footer">
+    <button mat-button class="decline" (click)="closeModal()">Discard changes</button>
+    <button mat-button class="accept" (click)="editFaculty(editForm.value)"
+      [disabled]="!editForm.valid || !editForm.dirty">Save Changes</button>
+
+  </div>
+</app-modal>
+
+
+
+
+
+
+
+<app-modal *ngIf="deleteModal">
+  <div body>
+    <span class="delete-warning-title">Permanent Deletion of Faculty ID Number: {{deleteFacId}}</span>
+
+    <span class="delete-warning-text">
+      "Deleting a faculty member will result in the deletion of all related data such as assigned capsules, comments, grades, and submitted capsules."</span>
+  </div>
+  <div footer class="dialog-footer">
+    <button mat-button  (click)="closeDeleteModal()">Cancel</button>
+    <button mat-button class="decline confirm" (click)="destroyFaculty(deleteFacId)">Confirm deletion</button>
+  </div>
+</app-modal>

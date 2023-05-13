@@ -1,0 +1,22 @@
+<!-- <div class="modal">
+    <div class="modal-header">
+        <h1>{{title}}</h1>
+    </div>
+    <ng-content select="[body]"></ng-content>
+    <ng-content select="[footer]" class="modal-footer"></ng-content>
+</div> -->
+
+
+
+
+<div class="dialog-container">
+<!-- <h1 mat-dialog-title class="dialog-header">{{title}}</h1> -->
+
+   <div mat-dialog-content>
+    <ng-content select="[body]"></ng-content>
+  </div>
+  <div mat-dialog-actions class="dialog-footer-container">
+  <ng-content select="[footer]"></ng-content>
+  </div>
+</div>
+

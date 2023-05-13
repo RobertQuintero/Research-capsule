@@ -1,0 +1,119 @@
+
+<mat-card>
+    <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
+
+        <div class="logo">
+          <img src="assets/icons/logo-name-v2.svg" alt="Research Capsule" class="logo-image image-register">
+          <h1 class="h1-align-left">Create your Research Capsule Account <span>to continue</span></h1>
+        </div>
+
+
+
+      <div class="right-and-left-input-fields">
+        <mat-form-field appearance="outline" [hideRequiredMarker]="true" >
+          <mat-label>First Name</mat-label>
+          <input
+                matInput placeholder="Ex. John"
+                formControlName="firstName"
+                [errorStateMatcher]="matcher">
+
+          <mat-error *ngIf="firstNameFormControl.hasError('required')">
+            <mat-icon>error</mat-icon>Please enter your first name
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" [hideRequiredMarker]="true" >
+          <mat-label>Last Name</mat-label>
+          <input
+                matInput
+                placeholder="Ex. Doe"
+                formControlName="lastName"
+                [errorStateMatcher]="matcher">
+
+          <mat-error *ngIf="lastNameFormControl.hasError('required')">
+            <mat-icon>error</mat-icon>Please enter your last name
+          </mat-error>
+
+        </mat-form-field>
+      </div>
+      <mat-form-field appearance="outline" [hideRequiredMarker]="true" class="spacer">
+        <mat-label>Email</mat-label>
+          <input
+                matInput
+                placeholder="Ex. johndoe@gmail.com"
+                formControlName="email"
+                [errorStateMatcher]="matcher">
+
+            <mat-error
+                  *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                  <mat-icon>error</mat-icon>Please enter a valid email address
+                  </mat-error>
+                  <mat-error *ngIf="emailFormControl.hasError('required')">
+                    <mat-icon >error</mat-icon>Please enter your email address
+                  </mat-error>
+                  <mat-hint><mat-icon >info_outline</mat-icon>Ex. johndoe@gmail.com</mat-hint>
+      </mat-form-field>
+
+      <div class="right-and-left-input-fields">
+          <mat-form-field appearance="outline" [hideRequiredMarker]="true" >
+            <mat-label>Password</mat-label>
+              <input
+                    type="{{showPassword}}"
+                    type="password"
+                    matInput
+                    placeholder="Ex. Password123!"
+                    formControlName="password"
+                    [errorStateMatcher]="matcher"
+                    [ngClass]="{'valid-password': registerForm.get('password')?.valid}">
+
+                <mat-error class="width-message"  *ngIf="passwordFormControl.hasError('required')">
+                    <mat-icon>error</mat-icon>At least 8 characters, containing letters, numbers, & symbols.
+                </mat-error>
+                <mat-error class="width-message" *ngIf="passwordFormControl.hasError('pattern')">
+                      <mat-icon>error</mat-icon>Please enter a password with at least 8 characters, containing letters, numbers, & symbols.
+                </mat-error>
+
+                  <mat-hint class="width-message" *ngIf="!registerForm.get('password')?.valid && (passwordFormControl.hasError('required') || passwordFormControl.hasError('pattern'))"><mat-icon>info_outline</mat-icon>At least 8 characters, containing letters, numbers, & symbols.
+                  </mat-hint>
+                  <mat-hint *ngIf="passwordValidMessage" class="password-hint" [ngClass]="{'valid-password': registerForm.get('password')?.valid}"><mat-icon>check_circle</mat-icon>{{ passwordValidMessage }}
+                  </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" [hideRequiredMarker]="true" >
+             <mat-label>Confirm Password</mat-label>
+                 <input
+                        type="{{showPassword}}"
+                        type="password"
+                        matInput
+                        placeholder="Ex. Password123!"
+                        formControlName="confirmPass"
+                        [errorStateMatcher]="matcher">
+              </mat-form-field>
+
+      </div>
+
+
+
+      <mat-checkbox class="button-a-link" (change)="toggleShowPassword()" color="primary">Show password</mat-checkbox>
+        <br>
+        <br>
+      <div class="create-and-login">
+          <button type="button" mat-button  color="primary" [routerLink]="['']">
+            Sign in instead
+          </button>
+
+          <button mat-flat-button color="primary" type="submit" [disabled]="!allFieldsFilled">
+            Create Account
+          </button>
+      </div>
+
+    </form>
+    <div class="tc-and-pp">
+      <a mat-button >Privacy</a>
+      <a mat-button >Terms</a>
+    </div>
+
+</mat-card>
+
+
+<mat-spinner id="spinner" *ngIf="isLoading == true"></mat-spinner>

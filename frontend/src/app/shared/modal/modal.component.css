@@ -1,0 +1,23 @@
+
+.dialog-container{
+  background-color: var(--bg-1);
+  width: fit-content;
+  max-width: 90rem;
+  max-height: 60rem;
+  padding: 2rem 2rem 2rem 2rem;
+  border-radius: var(--radius-1);
+}
+.dialog-header{
+  font-size: var(--fs-6);
+  font-weight: var(--fw-500);
+  text-align: left;
+  width: 100%;
+}
+.dialog-footer-container{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: flex-end;
+  justify-content: flex-end;
+  width: 100%;
+}
