@@ -48,7 +48,7 @@ class ReviewController extends Controller
         $assignedCapsules = Capsule::whereHas('reviews', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })->with(['user', 'reviews.user'])->get();
-        
+
         return response($assignedCapsules, 200);
     }
 
@@ -58,6 +58,7 @@ class ReviewController extends Controller
                 ->first();
         $review->update([
             'grade' => 0,
+            'comment' => $request->comment,
             'isReviewed' => true
         ]);
         $capsule = Capsule::where('id', $request->capsule_id)->first();
@@ -70,7 +71,7 @@ class ReviewController extends Controller
             $capsule->update([
                 'status' => 'Under Revision'
             ]);
-        } 
+        }
         else {
             $capsule->update([
                 'status' => 'Incomplete'
@@ -80,7 +81,7 @@ class ReviewController extends Controller
         $assignedCapsules = Capsule::whereHas('reviews', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })->with(['user', 'reviews.user'])->get();
-        
+
         return response($assignedCapsules, 200);
     }
 
@@ -90,6 +91,7 @@ class ReviewController extends Controller
                 ->first();
         $review->update([
             'grade' => null,
+            'comment' => null,
             'isReviewed' => false
         ]);
         $capsule = Capsule::where('id', $request->capsule_id)->first();
@@ -101,7 +103,7 @@ class ReviewController extends Controller
         $assignedCapsules = Capsule::whereHas('reviews', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })->with(['user', 'reviews.user'])->get();
-        
+
         return response($assignedCapsules, 200);
     }
 }

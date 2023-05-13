@@ -58,7 +58,7 @@ class UserController extends Controller
         $faculty->update([
             'approved' => true
         ]);
-        $faculties = User::where('level', 1)->get();
+        $faculties = User::where('level', 1)->where('approved', 0)->get();
         return response(['message' => "faculty with the name of {$faculty->firstName} {$faculty->lastName} is successfully approved", 'faculties' => $faculties], 200);
     }
 
@@ -68,7 +68,7 @@ class UserController extends Controller
         $first = $faculty->firstName;
         $last = $faculty->lastName;
         $faculty->delete();
-        $faculties = User::where('level', 1)->get();
+        $faculties = User::where('level', 1)->where('approved', 0)->get();
         return response(['message' => "faculty with the name of {$first} {$last} is successfully rejected", 'faculties' => $faculties], 200);
     }
 
