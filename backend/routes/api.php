@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CapsuleController;
+use App\Http\Controllers\PasswordResetTokenController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -88,7 +89,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::put('unreviseCapsule', [ReviewController::class, 'unreviseCapsule']);
 
         Route::post('reviseCapsule', [CapsuleController::class, 'reviseCapsule']);
-        
+
     });
 });
 
@@ -96,3 +97,8 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/register', [AuthController::class, 'register']);
 
+Route::post('store', [PasswordResetTokenController::class, 'store']);
+
+Route::get('token/check/{token}', [PasswordResetTokenController::class, 'checkToken']);
+
+Route::post('password/reset/token/{token}', [PasswordResetTokenController::class, 'resetPasswordFinally']);

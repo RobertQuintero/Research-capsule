@@ -12,21 +12,21 @@ services:
     ports:
       - 8087:8000
 
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile.frontend
-  #   container_name: lampn-frontend-prod
-  #   restart: unless-stopped
-  #   volumes:
-  #     - ./frontend:/usr/src/app
-  #   ports:
-  #     - 8086:4200
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    container_name: lampn-frontend-prod
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/app
+    ports:
+      - 8086:4200
 
 
   nginx:
     image: nginx:alpine
-    container_name: lampn-frontend-prod
+    container_name: lampn-nginx-prod
     restart: unless-stopped
     volumes:
       - ./frontend/dist/app:/usr/share/nginx/html
@@ -63,7 +63,7 @@ services:
       - PMA_PASSWORD=password
       - PMA_PORT=3306
     ports:
-      - 8083:80
+      - 8088:80
 
 
   redis:
