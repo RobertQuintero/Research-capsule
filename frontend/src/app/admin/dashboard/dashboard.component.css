@@ -337,48 +337,51 @@ h3.inside-tab-title {
     }
 
     .assign-reviewer-grade{
-    color: var(--success);
-    font-weight: var(--fw-600);
-    background-color: var(--success-bg);
-    border-radius: var(--radius-1);
-    padding: .2rem .5rem .2rem .5rem;
-    width: fit-content;
-    position: absolute;
-    top: .1rem;
-    right: 0;
-    }
-    .assign-reviewer-grade::before{
-    content: "Grade: ";
-    font-size: var(--fs-mid);
-    font-weight: var(--fw-500);
-    }
-
-    .assign-reviewer-grade.ungraded{
-      background-color:var(--pending-bg);
-      color: var(--pending);
-
-    }
-    .assign-reviewer-grade.ungraded::before{
-     content: "Awaiting: ";
-    }
+      color: var(--success);
+      font-weight: var(--fw-600);
+      background-color: var(--success-bg);
+      border-radius: var(--radius-1);
+      padding: .2rem .5rem .2rem .5rem;
+      width: fit-content;
+      position: absolute;
+      top: .1rem;
+      right: 0;
+      }
+      .assign-reviewer-grade::before{
+        content: "Pass: ";
+        font-size: var(--fs-mid);
+        font-weight: var(--fw-500);
+        }
 
 
 
-    .assign-reviewer-grade::before{
-    content: "Grade: ";
-    font-size: var(--fs-mid);
-    font-weight: var(--fw-500);
-    }
+      .assign-reviewer-grade.ungraded{
+        background-color:var(--pending-bg);
+        color: var(--pending);
 
-    .assign-reviewer-grade.under-revision{
-    background-color: var(--danger-bg);
-    color: var(--danger);
-    }
-    .assign-reviewer-grade.under-revision::before{
-    content: "Under: ";
-    }
+      }
+      .assign-reviewer-grade.ungraded::before{
+       content: "Awaiting: ";
+      }
 
 
+      .assign-reviewer-grade.under-revision{
+      background-color: var(--danger-bg);
+      color: var(--danger);
+      }
+      .assign-reviewer-grade.under-revision::before{
+      content: "Under: ";
+      }
+
+
+
+      .assign-reviewer-grade.failed{
+        background-color: var(--danger-bg);
+        color: var(--danger);
+        }
+      .assign-reviewer-grade.failed::before{
+        content: "Fail: ";
+        }
 
 
 

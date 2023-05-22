@@ -232,16 +232,25 @@
 
 
                 <!-- <span class="assign-reviewer-grade">{{!!review.grade ? review.grade : '--'}}</span> -->
-                <ng-container *ngIf="review.grade === 0; else otherStatus">
-                  <span class="assign-reviewer-grade under-revision">Revision</span>
-                </ng-container>
-
-                <ng-template #otherStatus>
-                  <span *ngIf="review.grade; else noGrade" class="assign-reviewer-grade">{{ review.grade }}</span>
-                  <ng-template #noGrade>
-                    <span class="assign-reviewer-grade ungraded">Grading</span>
-                  </ng-template>
-                </ng-template>
+                <span class="assign-reviewer-grade"
+              [ngClass]="{
+                'under-revision': review.grade === 0,
+                'failed': review.grade !== null && review.grade !== undefined && review.grade >= 1 && review.grade <= 74,
+                'ungraded': review.grade === null || review.grade === undefined
+              }">
+              <ng-container *ngIf="review.grade === 0">
+                Revision
+              </ng-container>
+              <ng-container *ngIf="review.grade !== null && review.grade !== undefined && review.grade >= 75">
+                {{ review.grade }}
+              </ng-container>
+              <ng-container *ngIf="review.grade !== null && review.grade !== undefined && review.grade >= 1 && review.grade <= 74">
+                {{ review.grade }}
+              </ng-container>
+              <ng-container *ngIf="review.grade === null || review.grade === undefined">
+                Grading
+              </ng-container>
+            </span>
 
 
               </div>
